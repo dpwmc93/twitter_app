@@ -4,6 +4,7 @@ class TimelineController < ApplicationController
 
   def index
     @user = current_user
+    @message = Message.new
   end
 
 end

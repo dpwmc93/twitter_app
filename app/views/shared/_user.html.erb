@@ -1,8 +1,31 @@
-<%= image_tag "user_icon.png", width: "100px" %>
-<br>
-<p>@<%= user.username %></p>
-<p><%= user.full_name %></p>
-<p><%= user.city %>,<%= @user.state %></p>
-<br>
-<br>
-<p><%= @user.bio %></p>
+<div class="row">
+    <div class="user_profile col-4">
+      <%= image_tag "user_icon.png", width: "100px" %>
+      <br>
+      <p>@<%= user.username %></p>
+      <p><%= user.full_name %></p>
+      <p><%= user.city %>,<%= @user.state %></p>
+      <br>
+      <br>
+      <p><%= @user.bio %></p>
+    </div>
+
+
+    <div class="message_list col-8">
+
+      <% if current_user == user %>
+            <%= form_for message do |form| %>
+              <%= form.text_area :body %>
+              <%= form.submit "Tweet it!", class: "btn btn-primary" %>
+            <% end %>
+          <% end %>
+
+      <% user.messages.each do |message| %>
+        <div class="message">
+          <%= image_tag "user_icon.png", width: "20px" %>
+          <p><%= message.body %></p>
+          <p class="message-date"><%= time_ago_in_words(message.created_at) %></p>
+        </div>
+      <% end %>
+    </div>
+</div>

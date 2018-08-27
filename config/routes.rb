@@ -4,4 +4,6 @@ Rails.application.routes.draw do
   get "timeline" => "timeline#index"
   get "/users" => "users#index"
   get "/users/:id" => "users#show", as: :user
+
+  resources :messages
 end
