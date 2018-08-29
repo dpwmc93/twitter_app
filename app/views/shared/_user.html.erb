@@ -1,31 +1,37 @@
+
 <div class="row">
-    <div class="user_profile col-4">
-      <%= image_tag "user_icon.png", width: "100px" %>
-      <br>
-      <p>@<%= user.username %></p>
-      <p><%= user.full_name %></p>
-      <p><%= user.city %>,<%= @user.state %></p>
-      <br>
-      <br>
-      <p><%= @user.bio %></p>
-    </div>
+  <div class="user_profile col-4">
 
+    <%= render "shared/avatar", user: user, width: "100px" %>
 
-    <div class="message_list col-8">
+    <br>
+    <p>@<%= user.username %></p>
+    <p><%= user.full_name %></p>
+    <p><%= user.city %>,  <%= user.state %></p>
+    <br>
+    <p><%= user.bio %></p>
+    <br>
+    <% unless current_user == user || current_user.following.include?(user.id) %>
+      <%= link_to "Follow", follow_user_path(user.id), class: "btn btn-primary" %>
+    <% end %>
+  </div>
 
-      <% if current_user == user %>
-            <%= form_for message do |form| %>
-              <%= form.text_area :body %>
-              <%= form.submit "Tweet it!", class: "btn btn-primary" %>
-            <% end %>
-          <% end %>
+  <div class="message_list col-8">
 
-      <% user.messages.each do |message| %>
-        <div class="message">
-          <%= image_tag "user_icon.png", width: "20px" %>
-          <p><%= message.body %></p>
-          <p class="message-date"><%= time_ago_in_words(message.created_at) %></p>
-        </div>
+    <% if current_user == user %>
+      <%= form_for message do |form| %>
+        <%= form.text_area :body %>
+        <%= form.submit "Tweet it!", class: "btn btn-primary" %>
       <% end %>
-    </div>
+    <% end %>
+
+    <% @messages.each do |message| %>
+      <div class="message">
+        <%= render "shared/avatar", user: message.user, width: "50px" %>
+        <p><%= message.body %></p>
+        <br>
+        <p class="message-date"><%= time_ago_in_words(message.created_at) %></p>
+      </div>
+    <% end %>
+  </div>
 </div>

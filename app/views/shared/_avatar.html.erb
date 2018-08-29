@@ -1,0 +1,6 @@
+
+<% if user.avatar.attached? %>
+  <%= image_tag url_for(user.avatar), width: width %>
+<% else %>
+  <%= image_tag "user_icon.png", width: width %>
+<% end %>
