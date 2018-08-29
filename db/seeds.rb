@@ -56,7 +56,7 @@ puts "Generating fake users\n"
     password:   "123456",
     password_confirmation: "123456",
   })
-  filename = "stock-profile-#{time + 1}.jpeg"
+  filename = "user_profile_#{time + 1}.jpg"
   u.avatar.attach(io: File.open(IMAGES_DIR + "/" + filename), filename: filename)
   u.save!
   sleep 3
