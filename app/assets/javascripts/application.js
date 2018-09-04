@@ -10,7 +10,25 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+//= require jquery3
 //= require rails-ujs
 //= require activestorage
 //= require turbolinks
 //= require_tree .
+function tweetAlert() {
+  alert("Hey, I tweeted");
+}
+
+function tweetSubmitted() {
+  $('#tweet-button').click(function() {
+      message = $('#message_body').val();
+      alert("Hey, I tweeted: \"" + message + "\"");
+  });
+}
+
+$(document).ready(tweetSubmitted);
+
+
+function deleteTweet(id) {
+  $("#message-" + id).slideUp();
+}
